@@ -3,8 +3,8 @@
 </div>
 proxy_cache_path /tmp/nginx_cache keys_zone=nip5_cache:5m levels=1:2 inactive=300s max_size=100m use_temp_path=off;
 location /.well-known/nostr.json {
-    proxy_pass https://{https://needfulpaella1.lnbits.com}/nostrnip5/api/v1/domain/{oCBtV3TYHuzHdCpM77Ljsw}/nostr.json;
-    proxy_set_header Host {https://needfulpaella1.lnbits.com};
+    proxy_pass https://{needfulpaella1.lnbits.com}/nostrnip5/api/v1/domain/{oCBtV3TYHuzHdCpM77Ljsw}/nostr.json;
+    proxy_set_header Host {needfulpaella1.lnbits.com};
     proxy_ssl_server_name on;
 
     expires 5m;
