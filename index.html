@@ -16,18 +16,20 @@
     .hero {
       background-image: url('Angel_Token.png');
       background-size: cover;
-      background-position: center;
+      background-position: center top;
       height: 100vh;
       position: relative;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
+      align-items: center;
     }
     .hero-text {
       background: rgba(0, 0, 0, 0.6);
-      padding: 1rem 2rem;
-      border-radius: 10px;
+      padding: 1.2rem 2rem;
+      border-radius: 12px;
       text-align: center;
+      margin-top: -80px;
     }
     .hero-text h1 {
       font-family: 'Cinzel', serif;
@@ -37,10 +39,11 @@
     }
     .logo-watermark {
       position: absolute;
-      top: 20px;
-      left: 20px;
-      width: 60px;
+      bottom: 25px;
+      left: 25px;
+      width: 70px;
       opacity: 0.85;
+      z-index: 10;
     }
     main {
       max-width: 960px;
