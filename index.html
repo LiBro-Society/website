@@ -15,20 +15,21 @@
     }
 
     .hero-banner {
-      width: 100%;
-      max-height: 500px;
-      object-fit: contain;
       display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      aspect-ratio: 3 / 2;
     }
 
     .logo-center {
       display: block;
-      margin: -80px auto 30px auto;
+      margin: -60px auto 30px auto;
       width: 500px;
       border-radius: 50%;
-      border: 3px solid #ffd700;
+      border: 2px solid #ffd700;
       background-color: #0f0f0f;
-      padding: 10px;
+      padding: 4px;
       z-index: 10;
       position: relative;
     }
@@ -86,10 +87,10 @@
 </head>
 <body>
 
-<!-- Full Angel Banner (uncropped, max height) -->
+<!-- Full Angel Banner -->
 <img src="Angel_Token.png" alt="LiBro Angel" class="hero-banner" />
 
-<!-- Large Crest Logo -->
+<!-- Centered Crest Logo -->
 <img src="angel.png" alt="LiBro Crest" class="logo-center" />
 
 <!-- Sacred Intro Line -->
