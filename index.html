@@ -5,152 +5,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>LiBro Society</title>
   <link rel="icon" type="image/png" href="angel.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Open Sans', sans-serif;
       background-color: #0f0f0f;
-      color: #f0f0f0;
     }
 
-    .hero-section {
+    /* 🖼️ Hero Panel Section */
+    .hero-panel {
       position: relative;
       width: 100%;
-      max-height: 80vh;
-      overflow: hidden;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 2rem 0;
     }
 
-    .hero-section img.banner {
+    .hero-banner {
       width: 100%;
-      height: auto;
+      border-radius: 8px;
       display: block;
-      object-fit: contain;
     }
 
-    .hero-logo {
+    .logo-overlay {
       position: absolute;
-      bottom: 15%;
+      bottom: 10%;
       left: 50%;
       transform: translateX(-50%);
-      width: 450px;
-      z-index: 2;
-      filter: drop-shadow(0 0 8px #ffd700);
+      width: 240px;
+      z-index: 5;
+      filter: drop-shadow(0 0 12px #f7d95b);
     }
 
-    .intro-text {
+    /* Optional glow for artistic effect */
+    .halo {
       position: absolute;
-      bottom: 5%;
+      width: 300px;
+      height: 300px;
       left: 50%;
+      bottom: 7%;
       transform: translateX(-50%);
-      font-family: 'Cinzel', serif;
-      font-size: 2.2rem;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,215,0,0.2) 0%, transparent 80%);
       z-index: 2;
     }
 
-    main {
-      max-width: 960px;
-      margin: auto;
-      padding: 2rem 1rem;
-    }
-
-    h2 {
-      font-family: 'Cinzel', serif;
-      color: #ffd700;
-      border-bottom: 1px solid #444;
-      padding-bottom: 0.3rem;
-      margin-top: 2rem;
-    }
-
-    .btn-group a {
-      display: inline-block;
-      margin: 0.5rem 1rem 1rem 0;
-      padding: 0.6rem 1.2rem;
-      background: #ff4a4a;
-      color: #fff;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .socials a {
-      margin-right: 1.5rem;
-      color: #f0f0f0;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .socials a:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      background-color: #1c1c1c;
-      font-size: 0.9rem;
+    @media (max-width: 768px) {
+      .logo-overlay {
+        width: 160px;
+        bottom: 7%;
+      }
+      .halo {
+        width: 200px;
+        height: 200px;
+        bottom: 6%;
+      }
     }
   </style>
 </head>
 <body>
 
-<!-- 💥 Hero with Perfect Proportion -->
-<div class="hero-section">
-  <img src="Angel_Token.png" alt="LiBro Angel" class="banner" />
-  <img src="angel.png" alt="LiBro Crest" class="hero-logo" />
-  <div class="intro-text">We Are the Witnesses</div>
-</div>
-
-<main>
-  <section>
-    <h2>About LiBro Society</h2>
-    <p>
-      LiBro Society stands for memory, mutual aid, and resistance against erasure. We work with survivors, creators, and everyday witnesses to publish truth, feed those in need, and build a new culture of decentralized support.
-    </p>
-  </section>
-
-  <section>
-    <h2>Active Campaigns</h2>
-    <ul>
-      <li><strong>Free Feeding:</strong> Mutual aid meals for underserved communities.</li>
-      <li><strong>LiBro Vouchers:</strong> Trust-based peer-to-peer value exchange.</li>
-      <li><strong>Witness Protocol:</strong> Publishing evidence, letters, and testimonies on Arweave.</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>Manifesto & Memory</h2>
-    <div class="btn-group">
-      <a href="founding-manifesto.html" target="_blank">Founding Manifesto</a>
-      <a href="living-manifesto.html" target="_blank">Living Manifesto</a>
-      <a href="declaration-of-intent.html" target="_blank">Declaration of Intent</a>
-    </div>
-  </section>
-
-  <section class="socials">
-    <h2>Join the Movement</h2>
-    <a href="https://www.facebook.com/LiBro.page" target="_blank">📘 Facebook</a>
-    <a href="https://x.com/LiBro_X" target="_blank">🐦 Twitter/X</a>
-    <a href="https://t.me/LiBro_Society" target="_blank">💬 Telegram</a>
-  </section>
-
-  <section>
-    <h2>Talk to LiBro</h2>
-    <p>
-      The LiBro Witness Bot is coming soon. You’ll be able to speak with the spirit of the society directly on this site.
-    </p>
-  </section>
-</main>
-
-<footer>
-  &copy; 2025 LiBro Society. No one gets erased again.
-</footer>
-
-<!-- Chatbase Embed Placeholder -->
-<!-- <script src="https://www.chatbase.co/embed.js" bot-id="your-chatbase-bot-id" defer></script> -->
+<!-- 🛡️ Hero Composition -->
+<section class="hero-panel">
+  <img src="Angel_Token.png" alt="LiBro Banner" class="hero-banner" />
+  <div class="halo"></div>
+  <img src="angel.png" alt="LiBro Crest Logo" class="logo-overlay" />
+</section>
 
 </body>
 </html>
