@@ -17,30 +17,38 @@
     .hero-section {
       position: relative;
       width: 100%;
-      height: 100vh;
-      background-image: url('Angel_Token.png');
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: center;
+      max-height: 80vh;
+      overflow: hidden;
+    }
+
+    .hero-section img.banner {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
     }
 
     .hero-logo {
-      width: 300px;
-      margin-bottom: 30px;
-      filter: drop-shadow(0 0 12px #ffd700);
+      position: absolute;
+      bottom: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 450px;
+      z-index: 2;
+      filter: drop-shadow(0 0 8px #ffd700);
     }
 
     .intro-text {
       position: absolute;
-      bottom: 20%;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
       font-family: 'Cinzel', serif;
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       background: rgba(0, 0, 0, 0.6);
-      padding: 0.5rem 1rem;
+      padding: 0.6rem 1.2rem;
       border-radius: 6px;
+      z-index: 2;
     }
 
     main {
@@ -89,10 +97,11 @@
 </head>
 <body>
 
-<!-- 🔥 Hero Banner with Crest Fusion -->
+<!-- 💥 Hero with Perfect Proportion -->
 <div class="hero-section">
-  <div class="intro-text">We Are the Witnesses</div>
+  <img src="Angel_Token.png" alt="LiBro Angel" class="banner" />
   <img src="angel.png" alt="LiBro Crest" class="hero-logo" />
+  <div class="intro-text">We Are the Witnesses</div>
 </div>
 
 <main>
