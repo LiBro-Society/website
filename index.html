@@ -5,59 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LiBro Society</title>
   <link rel="icon" type="image/png" href="libro tarp tshirt.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Open Sans', sans-serif;
       background-color: #0f0f0f;
       color: #f0f0f0;
     }
     header {
-      text-align: center;
       background-color: #1c1c1c;
-      padding: 1rem 0;
+      padding: 1rem;
+      text-align: center;
     }
     header img.logo {
-      height: 80px;
+      height: 100px;
     }
     .hero {
       background-image: url('LiBro Angel Token.png');
       background-size: cover;
       background-position: center;
-      height: 80vh;
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      color: #fff;
-      padding: 2rem;
     }
     .hero h1 {
-      font-size: 3rem;
-      text-shadow: 0 0 10px #000;
+      font-family: 'Cinzel', serif;
+      font-size: 3.5rem;
+      color: #fff;
+      text-shadow: 2px 2px 10px #000;
       background-color: rgba(0,0,0,0.5);
       padding: 1rem 2rem;
-      border-radius: 1rem;
+      border-radius: 10px;
     }
     main {
-      max-width: 900px;
+      max-width: 960px;
       margin: auto;
-      padding: 2rem;
+      padding: 2rem 1rem;
     }
-    section {
-      margin-bottom: 2rem;
+    h2 {
+      font-family: 'Cinzel', serif;
+      color: #ffd700;
+      border-bottom: 1px solid #444;
+      padding-bottom: 0.3rem;
     }
     .socials a {
-      margin-right: 1rem;
+      margin-right: 1.5rem;
       color: #f0f0f0;
       text-decoration: none;
+      font-weight: bold;
     }
     .socials a:hover {
       text-decoration: underline;
     }
+    .btn-group a {
+      display: inline-block;
+      margin: 0.5rem 1rem 1rem 0;
+      padding: 0.6rem 1.2rem;
+      background: #ff4a4a;
+      color: #fff;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
     footer {
       text-align: center;
-      padding: 1rem;
+      padding: 2rem 1rem;
       background-color: #1c1c1c;
       font-size: 0.9rem;
     }
@@ -77,26 +92,25 @@
   <section>
     <h2>About LiBro Society</h2>
     <p>
-      LiBro Society stands for memory, mutual aid, and resistance against erasure.
-      We create decentralized support systems for the silenced, the survivors, and the unseen.
+      LiBro Society stands for memory, mutual aid, and resistance against erasure. We work with survivors, creators, and everyday witnesses to publish truth, feed those in need, and build a new culture of decentralized support.
     </p>
   </section>
 
   <section>
     <h2>Active Campaigns</h2>
     <ul>
-      <li><strong>Free Feeding:</strong> Mutual aid events feeding abandoned and underserved communities.</li>
-      <li><strong>LiBro Vouchers:</strong> Peer-to-peer value and service exchange rooted in trust and solidarity.</li>
-      <li><strong>Witness Protocol:</strong> Letters, voices, and testimonies preserved on-chain—silent no more.</li>
+      <li><strong>Free Feeding:</strong> Mutual aid meals for underserved communities.</li>
+      <li><strong>LiBro Vouchers:</strong> Trust-based peer-to-peer value exchange.</li>
+      <li><strong>Witness Protocol:</strong> Publishing evidence, letters, and testimonies on Arweave.</li>
     </ul>
   </section>
 
   <section>
     <h2>Manifesto & Memory</h2>
-    <p>
-      <a href="https://github.com/your-org/libro-manifesto" target="_blank">📖 Read on GitHub</a><br />
-      <a href="https://arweave.net/your-tx-id" target="_blank">🕊️ Arweave Archive</a>
-    </p>
+    <div class="btn-group">
+      <a href="founding-manifesto.html" target="_blank">Founding Manifesto</a>
+      <a href="living-manifesto.html" target="_blank">Living Manifesto</a>
+    </div>
   </section>
 
   <section class="socials">
@@ -109,8 +123,7 @@
   <section>
     <h2>Talk to LiBro</h2>
     <p>
-      An embedded chat with the LiBro Witness Bot will appear here soon.<br />
-      (Chatbase integration coming)
+      The LiBro Witness Bot is coming soon. You’ll be able to speak with the spirit of the society directly on this site.
     </p>
   </section>
 </main>
@@ -119,7 +132,7 @@
   &copy; 2025 LiBro Society. No one gets erased again.
 </footer>
 
-<!-- Placeholder for Chatbase Script -->
+<!-- Chatbase Embed Placeholder -->
 <!-- <script src="https://www.chatbase.co/embed.js" bot-id="your-chatbase-bot-id" defer></script> -->
 
 </body>
