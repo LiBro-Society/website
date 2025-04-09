@@ -13,49 +13,46 @@
       background-color: #0f0f0f;
       color: #f0f0f0;
     }
-    .hero {
-      background-image: url('Angel_Token.png');
-      background-size: cover;
-      background-position: center top;
-      height: 100vh;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+
+    .hero-banner {
+      width: 100%;
+      height: auto;
+      display: block;
     }
-    .hero-text {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 1.2rem 2rem;
-      border-radius: 12px;
-      text-align: center;
-      margin-top: -80px;
-    }
-    .hero-text h1 {
-      font-family: 'Cinzel', serif;
-      font-size: 3rem;
-      color: #fff;
-      margin: 0;
-    }
-    .logo-watermark {
-      position: absolute;
-      bottom: 25px;
-      left: 25px;
-      width: 70px;
-      opacity: 0.85;
+
+    .logo-center {
+      display: block;
+      margin: -60px auto 20px auto;
+      width: 120px;
+      border-radius: 50%;
+      border: 3px solid #ffd700;
+      background-color: #0f0f0f;
+      padding: 8px;
       z-index: 10;
+      position: relative;
     }
+
+    .intro-text {
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+    }
+
     main {
       max-width: 960px;
       margin: auto;
-      padding: 2rem 1rem;
+      padding: 1rem;
     }
+
     h2 {
       font-family: 'Cinzel', serif;
       color: #ffd700;
       border-bottom: 1px solid #444;
       padding-bottom: 0.3rem;
+      margin-top: 2rem;
     }
+
     .btn-group a {
       display: inline-block;
       margin: 0.5rem 1rem 1rem 0;
@@ -66,15 +63,18 @@
       text-decoration: none;
       font-weight: bold;
     }
+
     .socials a {
       margin-right: 1.5rem;
       color: #f0f0f0;
       text-decoration: none;
       font-weight: bold;
     }
+
     .socials a:hover {
       text-decoration: underline;
     }
+
     footer {
       text-align: center;
       padding: 2rem 1rem;
@@ -85,12 +85,14 @@
 </head>
 <body>
 
-<div class="hero">
-  <img src="angel.png" alt="LiBro Logo" class="logo-watermark" />
-  <div class="hero-text">
-    <h1>We Are the Witnesses</h1>
-  </div>
-</div>
+<!-- Full Angel Banner -->
+<img src="Angel_Token.png" alt="LiBro Angel" class="hero-banner" />
+
+<!-- Centered Crest Logo -->
+<img src="angel.png" alt="LiBro Crest" class="logo-center" />
+
+<!-- Title Scroll -->
+<div class="intro-text">We Are the Witnesses</div>
 
 <main>
   <section>
