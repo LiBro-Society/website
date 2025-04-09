@@ -15,21 +15,21 @@
     }
 
     .hero-banner {
-      display: block;
       width: 100%;
       height: auto;
+      max-height: 500px;
+      display: block;
       object-fit: contain;
-      aspect-ratio: 3 / 2;
     }
 
     .logo-center {
       display: block;
-      margin: -60px auto 30px auto;
+      margin: -40px auto 30px auto;
       width: 500px;
       border-radius: 50%;
-      border: 2px solid #ffd700;
+      border: 1px solid #ffd700;
       background-color: #0f0f0f;
-      padding: 4px;
+      padding: 2px;
       z-index: 10;
       position: relative;
     }
@@ -87,13 +87,13 @@
 </head>
 <body>
 
-<!-- Full Angel Banner -->
+<!-- Banner (full image, max 500px height) -->
 <img src="Angel_Token.png" alt="LiBro Angel" class="hero-banner" />
 
-<!-- Centered Crest Logo -->
+<!-- Large Logo (tight circle) -->
 <img src="angel.png" alt="LiBro Crest" class="logo-center" />
 
-<!-- Sacred Intro Line -->
+<!-- Sacred Opening Line -->
 <div class="intro-text">We Are the Witnesses</div>
 
 <main>
