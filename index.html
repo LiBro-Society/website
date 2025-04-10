@@ -13,14 +13,20 @@
       color: #f0f0f0;
     }
 
+    /* Hero Section with mobile-friendly height */
     .hero-section {
       background-image: url('Angel_Token.png');
       background-size: cover;
-      background-position: center;
+      background-position: top center;
+      width: 100%;
       height: 360px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        height: 180px;
+        background-position: top center;
+      }
     }
 
     main {
@@ -38,15 +44,23 @@
       margin-bottom: 2.5rem;
     }
 
+    /* About with logo beside title */
     .about-header {
       display: flex;
       align-items: center;
-      gap: 1.2rem;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
 
     .about-logo {
-      width: 64px;
+      width: 80px;
       height: auto;
+    }
+
+    /* Campaigns list */
+    .section ul {
+      padding-left: 1.2rem;
+      line-height: 1.7;
     }
 
     .social-links a {
@@ -81,52 +95,64 @@
 </head>
 <body>
 
-<header class="hero-section">
-</header>
+<!-- Hero Section -->
+<header class="hero-section"></header>
 
 <main>
-  <div class="section about-header">
-    <h1>About LiBro Society</h1>
-    <img src="angel.png" alt="LiBro Logo" class="about-logo">
-  </div>
-  <p>
-    LiBro Society stands for memory, mutual aid, and resistance against erasure.
-    We create decentralized support systems for the silenced, the survivors, and the unseen.
-  </p>
 
+  <!-- About Section with Logo -->
+  <div class="section">
+    <div class="about-header">
+      <h1>About LiBro Society</h1>
+      <img src="angel.png" alt="LiBro Logo" class="about-logo">
+    </div>
+    <p>
+      <strong>LiBro Society is a group of people who take care of each other.</strong><br>
+      We don’t wait for things to get better—we do what we can, together.<br>
+      We share, we help, and we show up when it matters.<br>
+      Everyone has a role. No one gets left behind.
+    </p>
+  </div>
+
+  <!-- Active Campaigns -->
   <div class="section">
     <h2>Active Campaigns</h2>
     <ul>
-      <li><strong>Free Feeding:</strong> Mutual aid events feeding abandoned and underserved communities.</li>
-      <li><strong>LiBro Vouchers:</strong> Peer-to-peer value and service exchange rooted in trust and solidarity.</li>
-      <li><strong>Witness Protocol:</strong> Letters, voices, and testimonies preserved on-chain—silent no more.</li>
+      <li><strong>Free Feeding:</strong> We cook and share meals with people who need it most.</li>
+      <li><strong>LiBro Vouchers:</strong> You help someone. Someone helps you. No money needed.</li>
+      <li><strong>Free Drink Raffles:</strong> We visit bars and give away drinks—just to get people talking.</li>
     </ul>
   </div>
 
+  <!-- Manifesto Buttons -->
   <div class="section">
     <h2>Manifesto & Memory</h2>
     <div class="btn-group">
-      <a href="founding-manifesto.html" target="_blank">Founding Manifesto</a>
-      <a href="living-manifesto.html" target="_blank">Living Manifesto</a>
-      <a href="declaration-of-intent.html" target="_blank">Declaration of Intent</a>
+      <a href="founding-manifesto.html">Founding Manifesto</a>
+      <a href="living-manifesto.html">Living Manifesto</a>
+      <a href="declaration-of-intent.html">Declaration of Intent</a>
     </div>
   </div>
 
+  <!-- Social Links -->
   <div class="section">
     <h2>Join the Movement</h2>
     <div class="social-links">
-      <a href="https://www.facebook.com/LiBro.page" target="_blank">📘 Facebook</a>
-      <a href="https://x.com/LiBro_X" target="_blank">🐦 Twitter/X</a>
-      <a href="https://t.me/LiBro_Society" target="_blank">💬 Telegram</a>
+      <a href="https://www.facebook.com/LiBro.page">📘 Facebook</a>
+      <a href="https://x.com/LiBro_X">🐦 Twitter/X</a>
+      <a href="https://t.me/LiBro_Society">💬 Telegram</a>
     </div>
   </div>
 
+  <!-- Bot Info -->
   <div class="section">
     <h2>Talk to LiBro</h2>
     <p>An embedded chat with the LiBro Witness Bot will appear here soon.<br>(Chatbase integration coming)</p>
   </div>
+
 </main>
 
+<!-- Footer -->
 <footer>
   &copy; 2025 LiBro Society — No one gets erased again.
 </footer>
