@@ -13,7 +13,6 @@
       color: #f0f0f0;
     }
 
-    /* Hero Section */
     .hero-section {
       background-image: url('Angel_Token.png');
       background-size: cover;
@@ -22,12 +21,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-    }
-
-    .hero-logo {
-      margin-top: 220px;
-      width: 120px;
-      height: auto;
     }
 
     main {
@@ -43,6 +36,17 @@
 
     .section {
       margin-bottom: 2.5rem;
+    }
+
+    .about-header {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .about-logo {
+      width: 64px;
+      height: auto;
     }
 
     .social-links a {
@@ -77,19 +81,18 @@
 </head>
 <body>
 
-<!-- Hero Section -->
 <header class="hero-section">
-  <img src="angel.png" alt="LiBro Logo" class="hero-logo" />
 </header>
 
 <main>
-  <div class="section">
+  <div class="section about-header">
     <h1>About LiBro Society</h1>
-    <p>
-      LiBro Society stands for memory, mutual aid, and resistance against erasure.
-      We create decentralized support systems for the silenced, the survivors, and the unseen.
-    </p>
+    <img src="angel.png" alt="LiBro Logo" class="about-logo">
   </div>
+  <p>
+    LiBro Society stands for memory, mutual aid, and resistance against erasure.
+    We create decentralized support systems for the silenced, the survivors, and the unseen.
+  </p>
 
   <div class="section">
     <h2>Active Campaigns</h2>
