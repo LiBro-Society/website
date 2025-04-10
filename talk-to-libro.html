@@ -3,65 +3,102 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Talk to LiBro | LiBro Society</title>
+  <title>Talk to LiBro</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
   <style>
     body {
       background-color: #0d0d0d;
       color: #f0f0f0;
       font-family: 'Open Sans', sans-serif;
-      padding: 2rem;
       text-align: center;
+      padding: 2rem;
     }
+
     h1 {
       font-family: 'Cinzel', serif;
       color: #ffd700;
       font-size: 3rem;
-      margin-bottom: 1rem;
+      margin-top: 0.5rem;
     }
-    p {
-      font-style: italic;
-      color: #ccc;
-      font-size: 1.1rem;
-      margin-bottom: 2rem;
-    }
+
     .logo {
-      width: 120px;
-      margin: 1rem auto 1rem;
-      display: block;
+      max-width: 350px;
+      margin: 0 auto 1rem;
     }
-    iframe {
-      width: 100%;
-      height: 700px;
-      max-width: 900px;
-      border: none;
-      border-radius: 12px;
-      margin: 0 auto;
-      display: block;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+
+    .tagline {
+      font-style: italic;
+      font-size: 1.1rem;
+      color: #cccccc;
+      margin-top: 1rem;
     }
+
     .back-link {
-      margin-top: 2rem;
+      margin-top: 3rem;
+      display: inline-block;
       color: #ffd700;
       text-decoration: none;
-      display: inline-block;
       font-size: 1rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-  <img src="angel.png" alt="LiBro Logo" class="logo" />
+  <img class="logo" src="angel.png" alt="LiBro Logo" />
   <h1>Talk to LiBro</h1>
-  <p>This is not automation. This is presence.<br>Speak freely. We listen.</p>
+  <p class="tagline">This is not automation. This is presence.<br>Speak freely. We listen.</p>
 
-  <!-- Chatbase embedded iframe version -->
-  <iframe 
-    src="https://www.chatbase.co/chatbot-iframe/wUtbTpk8pEcp2SoHmj1HI"
-    allow="microphone;"
-  ></iframe>
+  <a class="back-link" href="index.html">← Back to Homepage</a>
 
-  <a href="index.html" class="back-link">← Back to Homepage</a>
+  <!-- Resize iframe after it loads -->
+  <script>
+    const observer = new MutationObserver(() => {
+      const iframe = document.querySelector('iframe[src*="chatbase.co"]');
+      if (iframe) {
+        iframe.style.maxWidth = '600px';
+        iframe.style.height = '500px';
+        iframe.style.borderRadius = '16px';
+        iframe.style.margin = '2rem auto';
+        iframe.style.display = 'block';
+        observer.disconnect();
+      }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+  </script>
+
+  <!-- Chatbase Script (working embed) -->
+  <script>
+  (function(){
+    if(!window.chatbase || window.chatbase("getState")!=="initialized"){
+      window.chatbase=(...arguments)=>{
+        if(!window.chatbase.q){window.chatbase.q=[]}
+        window.chatbase.q.push(arguments)
+      };
+      window.chatbase=new Proxy(window.chatbase,{
+        get(target,prop){
+          if(prop==="q"){return target.q}
+          return(...args)=>target(prop,...args)
+        }
+      });
+    }
+
+    const onLoad=function(){
+      const script=document.createElement("script");
+      script.src="https://www.chatbase.co/embed.min.js";
+      script.id="wUtbTpk8pEcp2SoHmj1HI";
+      script.domain="www.chatbase.co";
+      document.body.appendChild(script);
+    };
+
+    if(document.readyState==="complete"){onLoad()}
+    else{window.addEventListener("load",onLoad)}
+  })();
+  </script>
 
 </body>
 </html>
