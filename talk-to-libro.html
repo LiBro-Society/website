@@ -12,37 +12,34 @@
       color: #f0f0f0;
       font-family: 'Open Sans', sans-serif;
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 2rem 1rem 4rem;
     }
     img.logo {
-      max-width: 160px;
+      max-width: 300px;
       margin: 0 auto 1.5rem;
       display: block;
     }
     h1 {
       font-family: 'Cinzel', serif;
       color: #ffd700;
-      font-size: 2.5rem;
+      font-size: 3rem;
       margin-bottom: 0.5rem;
     }
     p.subtitle {
       font-style: italic;
       color: #ccc;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       margin-top: 0;
       margin-bottom: 2rem;
     }
-    .chat-container {
-      max-width: 640px;
-      margin: 0 auto;
-      border: 1px solid #333;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+    .chat-wrapper {
+      width: 100%;
+      max-width: none;
+      margin-top: 3rem;
     }
     .back-link {
       display: inline-block;
-      margin-top: 2.5rem;
+      margin-top: 3rem;
       color: #ffd700;
       text-decoration: none;
       font-size: 1rem;
@@ -57,12 +54,12 @@
   <h1>Talk to LiBro</h1>
   <p class="subtitle">This is not automation. This is presence.<br>Speak freely. We listen.</p>
 
-  <div class="chat-container">
+  <div class="chat-wrapper">
     <script>
       (function () {
         if (!window.chatbase || window.chatbase("getState") !== "initialized") {
           window.chatbase = (...arguments) => {
-            if (!window.chatbase.q) { window.chatbase.q = []; }
+            if (!window.chatbase.q) window.chatbase.q = [];
             window.chatbase.q.push(arguments);
           };
           window.chatbase = new Proxy(window.chatbase, {
