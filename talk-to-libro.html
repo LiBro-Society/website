@@ -7,82 +7,61 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
   <style>
     body {
-      margin: 0;
       background-color: #0d0d0d;
       color: #f0f0f0;
       font-family: 'Open Sans', sans-serif;
+      padding: 2rem;
       text-align: center;
-      padding: 2rem 1rem 4rem;
-    }
-    img.logo {
-      max-width: 300px;
-      margin: 0 auto 1.5rem;
-      display: block;
     }
     h1 {
       font-family: 'Cinzel', serif;
       color: #ffd700;
       font-size: 3rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
     }
-    p.subtitle {
+    p {
       font-style: italic;
       color: #ccc;
-      font-size: 1.2rem;
-      margin-top: 0;
+      font-size: 1.1rem;
       margin-bottom: 2rem;
     }
-    .chat-wrapper {
-      max-width: 100%;
-      min-height: 500px;
+    .logo {
+      width: 120px;
+      margin: 1rem auto 1rem;
+      display: block;
+    }
+    iframe {
+      width: 100%;
+      height: 700px;
+      max-width: 900px;
+      border: none;
+      border-radius: 12px;
+      margin: 0 auto;
+      display: block;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
     }
     .back-link {
-      display: inline-block;
-      margin-top: 3rem;
+      margin-top: 2rem;
       color: #ffd700;
       text-decoration: none;
+      display: inline-block;
       font-size: 1rem;
-    }
-    .back-link:hover {
-      text-decoration: underline;
     }
   </style>
 </head>
 <body>
+
   <img src="angel.png" alt="LiBro Logo" class="logo" />
   <h1>Talk to LiBro</h1>
-  <p class="subtitle">This is not automation. This is presence.<br>Speak freely. We listen.</p>
+  <p>This is not automation. This is presence.<br>Speak freely. We listen.</p>
 
-  <!-- Chat container with matching ID -->
-  <div id="wUtbTpk8pEcp2SoHmj1HI" class="chat-wrapper"></div>
-
-  <script>
-    (function () {
-      if (!window.chatbase || window.chatbase("getState") !== "initialized") {
-        window.chatbase = (...arguments) => {
-          if (!window.chatbase.q) window.chatbase.q = [];
-          window.chatbase.q.push(arguments);
-        };
-        window.chatbase = new Proxy(window.chatbase, {
-          get(target, prop) {
-            if (prop === "q") return target.q;
-            return (...args) => target(prop, ...args);
-          }
-        });
-      }
-      const onLoad = function () {
-        const script = document.createElement("script");
-        script.src = "https://www.chatbase.co/embed.min.js";
-        script.id = "wUtbTpk8pEcp2SoHmj1HI";
-        script.setAttribute("chatbotId", "wUtbTpk8pEcp2SoHmj1HI");
-        script.setAttribute("domain", "www.chatbase.co");
-        document.body.appendChild(script);
-      };
-      if (document.readyState === "complete") onLoad();
-      else window.addEventListener("load", onLoad);
-    })();
-  </script>
+  <!-- Chatbase embedded iframe version -->
+  <iframe 
+    src="https://www.chatbase.co/chatbot-iframe/wUtbTpk8pEcp2SoHmj1HI"
+    allow="microphone;"
+  ></iframe>
 
   <a href="index.html" class="back-link">← Back to Homepage</a>
+
 </body>
 </html>
