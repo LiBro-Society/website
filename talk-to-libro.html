@@ -33,9 +33,8 @@
       margin-bottom: 2rem;
     }
     .chat-wrapper {
-      width: 100%;
-      max-width: none;
-      margin-top: 3rem;
+      max-width: 100%;
+      min-height: 500px;
     }
     .back-link {
       display: inline-block;
@@ -54,33 +53,35 @@
   <h1>Talk to LiBro</h1>
   <p class="subtitle">This is not automation. This is presence.<br>Speak freely. We listen.</p>
 
-  <div class="chat-wrapper">
-    <script>
-      (function () {
-        if (!window.chatbase || window.chatbase("getState") !== "initialized") {
-          window.chatbase = (...arguments) => {
-            if (!window.chatbase.q) window.chatbase.q = [];
-            window.chatbase.q.push(arguments);
-          };
-          window.chatbase = new Proxy(window.chatbase, {
-            get(target, prop) {
-              if (prop === "q") return target.q;
-              return (...args) => target(prop, ...args);
-            }
-          });
-        }
-        const onLoad = function () {
-          const script = document.createElement("script");
-          script.src = "https://www.chatbase.co/embed.min.js";
-          script.id = "wUtbTpk8pEcp2SoHmj1HI";
-          script.domain = "www.chatbase.co";
-          document.body.appendChild(script);
+  <!-- Chat container with matching ID -->
+  <div id="wUtbTpk8pEcp2SoHmj1HI" class="chat-wrapper"></div>
+
+  <script>
+    (function () {
+      if (!window.chatbase || window.chatbase("getState") !== "initialized") {
+        window.chatbase = (...arguments) => {
+          if (!window.chatbase.q) window.chatbase.q = [];
+          window.chatbase.q.push(arguments);
         };
-        if (document.readyState === "complete") onLoad();
-        else window.addEventListener("load", onLoad);
-      })();
-    </script>
-  </div>
+        window.chatbase = new Proxy(window.chatbase, {
+          get(target, prop) {
+            if (prop === "q") return target.q;
+            return (...args) => target(prop, ...args);
+          }
+        });
+      }
+      const onLoad = function () {
+        const script = document.createElement("script");
+        script.src = "https://www.chatbase.co/embed.min.js";
+        script.id = "wUtbTpk8pEcp2SoHmj1HI";
+        script.setAttribute("chatbotId", "wUtbTpk8pEcp2SoHmj1HI");
+        script.setAttribute("domain", "www.chatbase.co");
+        document.body.appendChild(script);
+      };
+      if (document.readyState === "complete") onLoad();
+      else window.addEventListener("load", onLoad);
+    })();
+  </script>
 
   <a href="index.html" class="back-link">← Back to Homepage</a>
 </body>
