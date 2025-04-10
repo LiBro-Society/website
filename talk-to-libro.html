@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Talk to LiBro | LiBro Society</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background-color: #0d0d0d;
+      color: #f0f0f0;
+      font-family: 'Open Sans', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+    img.logo {
+      max-height: 160px;
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-family: 'Cinzel', serif;
+      color: #ffd700;
+      font-size: 2.5rem;
+      text-align: center;
+      margin: 0.5rem 0 1rem;
+    }
+    .intro {
+      max-width: 700px;
+      text-align: center;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      color: #bbbbbb;
+      font-style: italic;
+    }
+    .chat-wrapper {
+      width: 100%;
+      max-width: 800px;
+      background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+      border: 2px solid #ffd70033;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 0 20px #000;
+    }
+    iframe {
+      width: 100%;
+      height: 80vh;
+      border: none;
+      border-radius: 8px;
+    }
+    .back-link {
+      margin-top: 2rem;
+    }
+    .back-link a {
+      color: #ffd700;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="angel.png" alt="LiBro Logo" class="logo">
+  <h1>Talk to LiBro</h1>
+
+  <div class="intro">
+    This is not automation. This is presence. <br/>
+    Speak freely. We listen.
+  </div>
+
+  <div class="chat-wrapper">
+    <iframe
+      src="https://www.chatbase.co/chatbot-iframe/wUtbTpk8pEcp2SoHmj1HI"
+      allow="microphone;">
+    </iframe>
+  </div>
+
+  <div class="back-link">
+    <a href="index.html">&larr; Back to Homepage</a>
+  </div>
+
+</body>
+</html>
