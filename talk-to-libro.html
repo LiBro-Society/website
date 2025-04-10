@@ -34,14 +34,17 @@
       margin-bottom: 2rem;
     }
 
+    .chat-wrapper {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
     iframe {
       width: 100%;
-      min-height: 700px;
+      min-height: 550px;
       border: none;
       border-radius: 12px;
-      max-width: 700px;
-      margin: 0 auto;
-      display: block;
     }
 
     .back-link {
@@ -66,10 +69,12 @@
     Speak freely. We listen.
   </p>
 
-  <iframe
-    src="https://www.chatbase.co/chatbot-iframe/wUtbTpk8pEcp2SoHmj1HI"
-    allow="clipboard-write"
-  ></iframe>
+  <div class="chat-wrapper">
+    <iframe
+      src="https://www.chatbase.co/chatbot-iframe/wUtbTpk8pEcp2SoHmj1HI"
+      allow="clipboard-write"
+    ></iframe>
+  </div>
 
   <a class="back-link" href="index.html">← Back to Homepage</a>
 
