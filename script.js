@@ -26,7 +26,8 @@ async function sendMessage() {
     const data = await response.json();
     const reply = data.reply || "⚠️ No response received.";
     appendMessage("LiBro Society", reply);
-  } catch (err) {
+    } catch (err) {
+    console.error("❌ Error while sending message:", err);
     appendMessage("LiBro Society", "⚠️ Something went wrong.");
   }
 }
