@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Talk to LiBro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background-color: #0f0f0f;
+      color: #f0f0f0;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Cinzel', serif;
+      color: #ffd700;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtext {
+      font-size: 1.1rem;
+      color: #ccc;
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    .logo {
+      max-width: 350px;
+      margin: 0 auto 1.5rem;
+      display: block;
+    }
+
+    .chatbox {
+      max-width: 800px;
+      height: 400px;
+      margin: 0 auto 2rem;
+      background-color: #1a1a1a;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-y: auto;
+      text-align: left;
+      border: 1px solid #ffd700;
+    }
+
+    .input-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    input[type="text"] {
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      width: 70%;
+      background: #2a2a2a;
+      color: #fff;
+    }
+
+    button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      background-color: #ffd700;
+      color: #0d0d0d;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #e6c200;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      color: #ffd700;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="angel.png" alt="LiBro Logo" class="logo">
+  <h1>Talk to LiBro</h1>
+  <p class="subtext">This is not automation. This is presence.<br>Speak freely. We listen.</p>
+
+  <div class="chatbox" id="chat-box"></div>
+
+  <div class="input-area">
+    <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off" />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <a href="index.html" class="back-link">← Back to Homepage</a>
+
+  <script src="script.js"></script>
+</body>
+</html>
