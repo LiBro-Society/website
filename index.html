@@ -9,85 +9,141 @@
   <meta name="description" content="LiBro Society is a quiet movement of presence, kindness, and action. We feed, we listen, we help - 𝐅𝐫𝐞𝐞𝐝𝐨𝐦 𝐭𝐨 𝐆𝐢𝐯𝐞, 𝐏𝐨𝐰𝐞𝐫 𝐭𝐨 𝐇𝐞𝐥𝐩." />
   <meta name="keywords" content="LiBro Society, decentralized help, feeding programs, presence, kindness, vouchers, manifesto, community" />
   <meta name="author" content="LiBro Society" />
-  
   <meta name="facebook-domain-verification" content="xoj4sjzsfugczukcm28fxcocud5t3i" />
-  
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+
+  <!-- Main Styles -->
   <style>
+    :root {
+      --gold: #ffd700;
+      --dark-bg: #0f0f0f;
+      --section-bg: #0d0d0d;
+      --footer-bg: #1c1c1c;
+      --primary: #ff4a4a;
+    }
     body {
       margin: 0;
       font-family: 'Open Sans', sans-serif;
-      background-color: #0f0f0f;
+      background-color: var(--dark-bg);
       color: #f0f0f0;
     }
-
     .hero-section {
       background-image: url('Angel_Token.png');
       background-size: cover;
-      background-position: top center;
+      background-position: center;
       background-repeat: no-repeat;
       width: 100%;
       aspect-ratio: 16/9;
+      min-height: 220px;
+      max-height: 50vh;
+      /* optional: add overlay for contrast if adding text later */
+      /* position: relative; */
     }
-
     main {
       max-width: 960px;
       margin: 2rem auto;
       padding: 0 1rem;
     }
-
     h1, h2 {
       font-family: 'Cinzel', serif;
-      color: #ffd700;
+      color: var(--gold);
     }
-
     .section {
       margin-bottom: 2.5rem;
     }
-
     .section ul {
       padding-left: 1.2rem;
       line-height: 1.7;
     }
-
     .social-links a {
       margin-right: 1.5rem;
       color: #f0f0f0;
       text-decoration: none;
       font-weight: bold;
     }
-
     .social-links a:hover {
       text-decoration: underline;
     }
-
     .btn-group a {
       display: inline-block;
       margin: 0.5rem 1rem 1rem 0;
       padding: 0.6rem 1.2rem;
-      background: #ff4a4a;
+      background: var(--primary);
       color: #fff;
       border-radius: 5px;
       text-decoration: none;
       font-weight: bold;
+      transition: background 0.2s;
     }
-
+    .btn-group a:hover {
+      background: #d13c3c;
+    }
     footer {
       text-align: center;
       padding: 2rem 1rem;
-      background-color: #1c1c1c;
+      background-color: var(--footer-bg);
       font-size: 0.9rem;
+    }
+    /* Talk to LiBro Section */
+    .talk-libro {
+      text-align: center;
+      padding: 3rem 1rem;
+      background-color: var(--section-bg);
+    }
+    .talk-libro h2 {
+      font-family: 'Cinzel', serif;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .talk-button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      color: var(--gold);
+      background-color: transparent;
+      border: 2px solid var(--gold);
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .talk-button:hover {
+      background-color: var(--gold);
+      color: #0d0d0d;
+    }
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      main {
+        padding: 0 0.5rem;
+      }
+      .btn-group a {
+        display: block;
+        margin: 0.5rem 0;
+        width: 100%;
+        text-align: center;
+      }
+      .section ul {
+        padding-left: 1rem;
+      }
+      .hero-section {
+        min-height: 120px;
+        max-height: 30vh;
+        aspect-ratio: 16/9;
+      }
     }
   </style>
 </head>
 <body>
 
 <!-- Hero Section -->
-<header class="hero-section"></header>
+<header class="hero-section" aria-label="Banner image of LiBro Society"></header>
 
 <main>
 
-  <!-- About Section (logo removed) -->
+  <!-- About Section -->
   <div class="section">
     <h1>About LiBro Society</h1>
     <p>
@@ -98,42 +154,11 @@
     </p>
   </div>
 
+  <!-- Talk to LiBro -->
   <section class="talk-libro">
     <h2>You’re Not Alone. Talk to LiBro.</h2>
     <a href="talk.html" class="talk-button">Talk to LiBro</a>
   </section>
-
-  <style>
-    .talk-libro {
-      text-align: center;
-      padding: 3rem 1rem;
-      background-color: #0d0d0d;
-    }
-
-    .talk-libro h2 {
-      font-family: 'Cinzel', serif;
-      color: #ffd700;
-      margin-bottom: 1.5rem;
-    }
-
-    .talk-button {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      font-weight: bold;
-      color: #ffd700;
-      background-color: transparent;
-      border: 2px solid #ffd700;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    .talk-button:hover {
-      background-color: #ffd700;
-      color: #0d0d0d;
-    }
-  </style>
 
   <!-- Active Campaigns -->
   <div class="section">
@@ -159,9 +184,9 @@
   <div class="section">
     <h2>Join the Movement</h2>
     <div class="social-links">
-      <a href="https://www.facebook.com/LiBro.page">📘 Facebook</a>
-      <a href="https://x.com/LiBro_X">🐦 Twitter/X</a>
-      <a href="https://t.me/LiBro_Society">💬 Telegram</a>
+      <a href="https://www.facebook.com/LiBro.page" aria-label="LiBro on Facebook">📘 Facebook</a>
+      <a href="https://x.com/LiBro_X" aria-label="LiBro on Twitter/X">🐦 Twitter/X</a>
+      <a href="https://t.me/LiBro_Society" aria-label="LiBro on Telegram">💬 Telegram</a>
     </div>
   </div>
 
