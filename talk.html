@@ -31,38 +31,114 @@
 
     .logo {
       max-width: 350px;
+      width: 70%;
       margin: 0 auto 1.5rem;
       display: block;
     }
 
+    /* The conversation: bubbles stacked top to bottom, yours on the right, LiBro's on the left */
     .chatbox {
+      position: relative;
+      box-sizing: border-box;
       max-width: 800px;
-      height: 400px;
-      margin: 0 auto 2rem;
+      height: 60vh;
+      height: 60dvh;
+      min-height: 320px;
+      max-height: 520px;
+      margin: 0 auto 1rem;
       background-color: #1a1a1a;
       padding: 1rem;
       border-radius: 8px;
       overflow-y: auto;
       text-align: left;
       border: 1px solid #ffd700;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .msg {
+      max-width: 85%;
+      padding: 0.6rem 0.9rem;
+      border-radius: 14px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .msg.user {
+      align-self: flex-end;
+      background: #ffd700;
+      color: #0d0d0d;
+      border-bottom-right-radius: 4px;
+    }
+
+    .msg.bot {
+      align-self: flex-start;
+      background: #2a2a2a;
+      color: #f0f0f0;
+      border-bottom-left-radius: 4px;
+    }
+
+    .msg.bot a {
+      color: #ffd700;
+      text-decoration: underline;
+    }
+
+    .msg.error {
+      border: 1px solid #c0584b;
+    }
+
+    .retry-btn {
+      display: block;
+      margin-top: 0.5rem;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.9rem;
+    }
+
+    /* "LiBro is typing" dots */
+    .typing {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      padding: 0.85rem 1rem;
+    }
+
+    .typing span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #aaa;
+      animation: blink 1.2s infinite ease-in-out;
+    }
+
+    .typing span:nth-child(2) { animation-delay: 0.2s; }
+    .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes blink {
+      0%, 80%, 100% { opacity: 0.25; }
+      40% { opacity: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .typing span { animation: none; opacity: 0.7; }
     }
 
     .input-area {
       display: flex;
-      justify-content: center;
       align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
+      gap: 0.75rem;
       max-width: 800px;
       margin: 0 auto;
     }
 
     input[type="text"] {
+      flex: 1;
+      min-width: 0;
       padding: 0.75rem;
       font-size: 1rem;
       border: none;
       border-radius: 5px;
-      width: 70%;
       background: #2a2a2a;
       color: #fff;
     }
@@ -82,6 +158,46 @@
       background-color: #e6c200;
     }
 
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    a:focus-visible {
+      outline: 2px solid #ffd700;
+      outline-offset: 2px;
+    }
+
+    .note {
+      max-width: 800px;
+      margin: 1rem auto 0;
+      font-size: 0.85rem;
+      color: #999;
+    }
+
+    .note a {
+      color: #ffd700;
+    }
+
+    .link-btn {
+      margin-top: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.9rem;
+      font-weight: normal;
+      background: none;
+      color: #ffd700;
+      text-decoration: underline;
+    }
+
+    .link-btn:hover {
+      background: none;
+      color: #e6c200;
+    }
+
+    .link-btn[hidden] { display: none; }
+
     .back-link {
       display: inline-block;
       margin-top: 2rem;
@@ -93,6 +209,26 @@
     .back-link:hover {
       text-decoration: underline;
     }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 1rem 0.75rem; }
+      h1 { font-size: 2rem; }
+      .subtext { font-size: 1rem; margin-bottom: 1.25rem; }
+      .msg { max-width: 92%; }
+      button { padding: 0.75rem 1.1rem; }
+    }
   </style>
 </head>
 <body>
@@ -101,16 +237,24 @@
   <h1>Talk to LiBro</h1>
   <p class="subtext">This is not automation. This is presence.<br>Speak freely. We listen.</p>
 
-  <div class="chatbox" id="chat-box"></div>
+  <div class="chatbox" id="chat-box" role="log" aria-live="polite" aria-label="Conversation with LiBro Society"></div>
 
-  <div class="input-area">
-    <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off" />
-    <button onclick="sendMessage()">Send</button>
-  </div>
+  <form class="input-area" id="chat-form" autocomplete="off">
+    <label for="user-input" class="sr-only">Your message</label>
+    <input type="text" id="user-input" placeholder="Type your message..." maxlength="500" enterkeyhint="send" autocomplete="off" />
+    <button type="submit" id="send-btn">Send</button>
+  </form>
 
+  <p class="note">
+    This chat isn't saved, and closing this tab clears it.
+  </p>
+
+  <button type="button" class="link-btn" id="new-chat" hidden>Start a new conversation</button>
+
+  <br>
   <a href="index.html" class="back-link">← Back to Homepage</a>
 
-  <!-- This loads your JavaScript logic -->
-  <script src="script.js"></script>
+  <!-- ?v=2 makes browsers fetch the new script instead of an old cached copy -->
+  <script src="script.js?v=2" defer></script>
 </body>
 </html>
