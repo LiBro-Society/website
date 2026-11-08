@@ -26,6 +26,7 @@
   let sending = false;
   let typingEl = null;
   let failed = null;             // the last question that got no answer: { text, userBubble, errorBubble }
+  let stickToBottom = true;      // true while the visitor is reading the latest message (not scrolled up)
 
   // ---- saving in this tab (all wrapped, since storage can be blocked, e.g. in private windows) ----
   function loadMessages() {
@@ -148,12 +149,13 @@
   }
 
   function renderAll() {
+    updateControls(); // first, so the phone layout (taller box) is in place before anything is measured
     chatBox.textContent = "";
     failed = null;
     addBubble("bot", WELCOME);
     messages.forEach(m => addBubble(m.role === "user" ? "user" : "bot", m.content));
+    stickToBottom = true;
     chatBox.scrollTop = chatBox.scrollHeight;
-    updateControls();
   }
 
   // ---- sending ----
@@ -221,9 +223,15 @@
 
   renderAll();
 
-  // Fonts and images finish loading after the first draw and change the bubble heights,
-  // so jump to the latest message once more when they're done (matters after a refresh)
-  const toBottom = () => { chatBox.scrollTop = chatBox.scrollHeight; };
-  window.addEventListener("load", toBottom);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(toBottom);
+  // Keep the latest message in view. Fonts finishing, the phone's address bar sliding away and the
+  // chat box changing size all move things after the first draw, so (unless the visitor has scrolled
+  // up to read) jump back to the bottom each time that happens.
+  const keepAtBottom = () => { if (stickToBottom) chatBox.scrollTop = chatBox.scrollHeight; };
+  chatBox.addEventListener("scroll", () => {
+    stickToBottom = chatBox.scrollHeight - chatBox.scrollTop - chatBox.clientHeight < 60;
+  });
+  if (window.ResizeObserver) new ResizeObserver(keepAtBottom).observe(chatBox);
+  window.addEventListener("load", keepAtBottom);
+  window.addEventListener("pageshow", keepAtBottom);   // coming back to the tab or using the back button
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(keepAtBottom);
 })();
