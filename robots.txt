@@ -1,0 +1,7 @@
+# Search engines may read the whole site.
+# /privacy/ is an empty placeholder for now; take that line out once it has real text.
+# chatbase-test.html is not blocked here on purpose: the page itself says "noindex", and Google has to be able to read it to see that.
+User-agent: *
+Disallow: /privacy/
+
+Sitemap: https://libro.gives/sitemap.xml

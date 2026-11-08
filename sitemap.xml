@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The public pages search engines should know about. Add new pages here, and update lastmod when a page changes. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://libro.gives/</loc><lastmod>2026-11-08</lastmod></url>
+  <url><loc>https://libro.gives/guide.html</loc><lastmod>2026-11-08</lastmod></url>
+  <url><loc>https://libro.gives/living-manifesto.html</loc><lastmod>2026-11-08</lastmod></url>
+  <url><loc>https://libro.gives/declaration-of-intent.html</loc><lastmod>2026-11-08</lastmod></url>
+  <url><loc>https://libro.gives/talk.html</loc><lastmod>2026-11-08</lastmod></url>
+  <url><loc>https://libro.gives/founding-manifesto.html</loc></url>
+  <url><loc>https://libro.gives/Letter_to_the_Church.html</loc></url>
+</urlset>
