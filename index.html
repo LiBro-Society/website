@@ -50,9 +50,10 @@
   <meta name="twitter:description" content="People looking after each other where they live. Help where you are, pass on a voucher, or start a LiBro Circle.">
   <meta name="twitter:image" content="https://libro.gives/hero.jpg">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+  <!-- Fonts are kept with the site (fonts/), nothing is loaded from Google -->
+  <link rel="preload" href="fonts/cinzel-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/open-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="fonts/fonts.css">
 
   <style>
     /* Direction A: "The Scroll". One calm centered column, like the manifesto pages. */
@@ -112,6 +113,9 @@
       transition: background-color 0.2s, color 0.2s;
     }
     .btn:hover { background: var(--gold); color: #0d0d0d; }
+    /* The one button most people need first: filled gold */
+    .btn-primary { background: var(--gold); color: #0d0d0d; }
+    .btn-primary:hover { background: #ffe44d; border-color: #ffe44d; }
 
     /* Gold rule with a small diamond, used between sections */
     .rule { display: flex; align-items: center; gap: 0.9rem; max-width: 300px; margin: 3rem auto; }
@@ -143,6 +147,8 @@
     .small-link { display: inline-block; margin-top: 1rem; padding: 0.6rem 0.5rem; color: var(--muted); }
 
     footer { text-align: center; color: var(--faint); font-size: 0.9rem; padding: 3rem 1rem 2.5rem; }
+    footer p { margin: 0; }
+    footer a { display: inline-block; margin-top: 0.4rem; padding: 0.5rem; color: var(--muted); }
 
     @media (max-width: 600px) {
       body { font-size: 1rem; }
@@ -174,7 +180,7 @@
     </p>
     <p class="motto">Freedom to Give<br>Power to Help</p>
     <div class="actions">
-      <a class="btn" href="talk.html">Talk to LiBro</a>
+      <a class="btn btn-primary" href="talk.html">Talk to LiBro</a>
       <a class="btn" href="guide.html">Start a LiBro Circle</a>
     </div>
   </section>
@@ -253,7 +259,12 @@
 
 </main>
 
-<footer>&copy; 2026 LiBro Society &middot; No one gets erased again.</footer>
+<footer>
+  <p>&copy; 2026 LiBro Society &middot; No one gets erased again.</p>
+  <!-- github-only: the Arweave release tool leaves this out of the Arweave copy, where it would point to itself -->
+  <p><a href="https://libro-society.ar.io/">Permanent copy on Arweave</a></p>
+  <!-- /github-only -->
+</footer>
 
 </body>
 </html>
