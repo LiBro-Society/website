@@ -31,16 +31,18 @@
       color: #f0f0f0;
     }
     .hero-section {
-      background-image: url('Angel_Token.png');
+      /* hero.jpg is a complete 16:9 picture (the painting with the round armor emblem and the
+         "LiBro Society" arch lettering), so show it whole instead of cropping it to a strip */
+      background-image: url('hero.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       width: 100%;
+      max-width: 1280px;
+      /* on a wide, short window the whole picture shrinks (never cropped) so the page text isn't pushed off screen */
+      max-width: min(1280px, calc(80vh * 16 / 9));
+      margin: 0 auto;
       aspect-ratio: 16/9;
-      min-height: 220px;
-      max-height: 50vh;
-      /* optional: add overlay for contrast if adding text later */
-      /* position: relative; */
     }
     main {
       max-width: 960px;
@@ -127,11 +129,6 @@
       }
       .section ul {
         padding-left: 1rem;
-      }
-      .hero-section {
-        min-height: 120px;
-        max-height: 30vh;
-        aspect-ratio: 16/9;
       }
     }
   </style>
