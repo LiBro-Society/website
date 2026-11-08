@@ -1,200 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LiBro Society</title>
+  <meta name="description" content="LiBro Society is people looking after each other where they live. Help where you are, pass on a voucher, or start a LiBro Circle with your neighbors.">
+  <meta name="author" content="LiBro Society">
+  <meta name="facebook-domain-verification" content="xoj4sjzsfugczukcm28fxcocud5t3i">
+  <meta name="theme-color" content="#0d0d0d">
+  <link rel="canonical" href="https://libro.gives/">
 
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="LiBro Society is a quiet movement of presence, kindness, and action. We feed, we listen, we help - 𝐅𝐫𝐞𝐞𝐝𝐨𝐦 𝐭𝐨 𝐆𝐢𝐯𝐞, 𝐏𝐨𝐰𝐞𝐫 𝐭𝐨 𝐇𝐞𝐥𝐩." />
-  <meta name="keywords" content="LiBro Society, decentralized help, feeding programs, presence, kindness, vouchers, manifesto, community" />
-  <meta name="author" content="LiBro Society" />
-  <meta name="facebook-domain-verification" content="xoj4sjzsfugczukcm28fxcocud5t3i" />
+  <!-- Link previews on Telegram, Facebook and X -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LiBro Society">
+  <meta property="og:url" content="https://libro.gives/">
+  <meta property="og:title" content="LiBro Society">
+  <meta property="og:description" content="People looking after each other where they live. Help where you are, pass on a voucher, or start a LiBro Circle.">
+  <meta property="og:image" content="https://libro.gives/hero.jpg">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="895">
+  <meta property="og:image:alt" content="The LiBro Society banner: a golden carved relief under an arch lettered LiBro Society, with the round LiBro armor emblem.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@LiBro_X">
+  <meta name="twitter:title" content="LiBro Society">
+  <meta name="twitter:description" content="People looking after each other where they live. Help where you are, pass on a voucher, or start a LiBro Circle.">
+  <meta name="twitter:image" content="https://libro.gives/hero.jpg">
 
-  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
 
-  <!-- Main Styles -->
   <style>
+    /* Direction A: "The Scroll". One calm centered column, like the manifesto pages. */
+    *, *::before, *::after { box-sizing: border-box; }
     :root {
       --gold: #ffd700;
-      --dark-bg: #0f0f0f;
-      --section-bg: #0d0d0d;
-      --footer-bg: #1c1c1c;
-      --primary: #ff4a4a;
+      --bg: #0d0d0d;
+      --text: #f0f0f0;
+      --muted: #c8c8c8;
+      --faint: #9a9a9a;
+      --line: rgba(255, 215, 0, 0.22);
     }
+    html { -webkit-text-size-adjust: 100%; }
     body {
       margin: 0;
+      background: var(--bg);
+      color: var(--text);
       font-family: 'Open Sans', sans-serif;
-      background-color: var(--dark-bg);
-      color: #f0f0f0;
-    }
-    .hero-section {
-      /* hero.jpg is a complete 16:9 picture (the painting with the round armor emblem and the
-         "LiBro Society" arch lettering), so show it whole instead of cropping it to a strip */
-      background-image: url('hero.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      width: 100%;
-      max-width: 1280px;
-      /* on a wide, short window the whole picture shrinks (never cropped) so the page text isn't pushed off screen */
-      max-width: min(1280px, calc(80vh * 16 / 9));
-      margin: 0 auto;
-      aspect-ratio: 16/9;
-    }
-    main {
-      max-width: 960px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    h1, h2 {
-      font-family: 'Cinzel', serif;
-      color: var(--gold);
-    }
-    .section {
-      margin-bottom: 2.5rem;
-    }
-    .section ul {
-      padding-left: 1.2rem;
+      font-size: 1.0625rem;
       line-height: 1.7;
     }
-    .social-links a {
-      margin-right: 1.5rem;
-      color: #f0f0f0;
-      text-decoration: none;
-      font-weight: bold;
+    a { color: var(--gold); }
+    a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    /* The banner is always shown whole, never cropped. It shrinks on short, wide screens
+       so the first buttons stay on the first screen. */
+    .banner {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-width: min(1280px, calc(54vh * 1600 / 895));
+      margin: 0 auto;
     }
-    .social-links a:hover {
-      text-decoration: underline;
+
+    /* Wide enough that each sentence fits on one line on a laptop */
+    main { max-width: 760px; margin: 0 auto; padding: 0 1.25rem; text-align: center; }
+    /* One sentence per line. On a phone a long sentence still wraps, so each sentence is its own
+       small block with a little space after it, and wraps into even lines instead of leaving one word alone. */
+    .s { display: block; text-wrap: balance; }
+    .s + .s { margin-top: 0.35em; }
+
+    h1, h2, h3, .motto { font-family: 'Cinzel', serif; color: var(--gold); font-weight: 600; }
+    h1 { font-size: 2.1rem; line-height: 1.25; margin: 2rem 0 0.75rem; }
+    h2 { font-size: 1.55rem; line-height: 1.3; margin: 0 0 1.5rem; }
+    h3 { font-size: 1.2rem; line-height: 1.35; margin: 0.25rem 0 0.4rem; }
+    p { margin: 0 0 0.9rem; }
+    .lead { font-size: 1.12rem; }
+    .tagalog { display: block; color: var(--faint); font-style: italic; font-size: 0.95em; margin-top: 0.3rem; text-wrap: balance; }
+
+    /* Buttons: gold outline, at least 48px tall, never wider than the screen */
+    .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.85rem; margin: 1.6rem 0 0.5rem; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 50px; padding: 0.7rem 1.6rem;
+      border: 2px solid var(--gold); border-radius: 6px;
+      color: var(--gold); background: transparent;
+      font-weight: 700; font-size: 1rem; text-decoration: none; text-align: center;
+      transition: background-color 0.2s, color 0.2s;
     }
-    .btn-group a {
-      display: inline-block;
-      margin: 0.5rem 1rem 1rem 0;
-      padding: 0.6rem 1.2rem;
-      background: var(--primary);
-      color: #fff;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.2s;
+    .btn:hover { background: var(--gold); color: #0d0d0d; }
+
+    /* Gold rule with a small diamond, used between sections */
+    .rule { display: flex; align-items: center; gap: 0.9rem; max-width: 300px; margin: 3rem auto; }
+    .rule::before, .rule::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+    .rule::after { background: linear-gradient(90deg, var(--gold), transparent); }
+    .rule span { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); }
+
+    .steps { list-style: none; margin: 0; padding: 0; }
+    .steps li { margin: 0 0 2.2rem; }
+    .steps li:last-child { margin-bottom: 0; }
+    .num { display: block; font-family: 'Cinzel', serif; color: var(--faint); font-size: 0.95rem; letter-spacing: 0.2em; }
+
+    /* Documents: one tappable row each */
+    .docs { list-style: none; margin: 0; padding: 0; text-align: left; border-top: 1px solid var(--line); }
+    .docs a {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 0.25rem; border-bottom: 1px solid var(--line);
+      text-decoration: none; color: var(--text);
     }
-    .btn-group a:hover {
-      background: #d13c3c;
-    }
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      background-color: var(--footer-bg);
-      font-size: 0.9rem;
-    }
-    /* Talk to LiBro Section */
-    .talk-libro {
-      text-align: center;
-      padding: 3rem 1rem;
-      background-color: var(--section-bg);
-    }
-    .talk-libro h2 {
-      font-family: 'Cinzel', serif;
-      color: var(--gold);
-      margin-bottom: 1.5rem;
-    }
-    .talk-button {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      font-weight: bold;
-      color: var(--gold);
-      background-color: transparent;
-      border: 2px solid var(--gold);
-      border-radius: 6px;
-      text-decoration: none;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    .talk-button:hover {
-      background-color: var(--gold);
-      color: #0d0d0d;
-    }
-    /* Responsive Design */
+    .docs a:hover .doc-title { text-decoration: underline; }
+    .doc-text { flex: 1; min-width: 0; }
+    .doc-title { display: block; font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.1rem; }
+    .doc-desc { display: block; color: var(--muted); font-size: 0.95rem; line-height: 1.5; margin-top: 0.15rem; }
+    .chev { color: var(--gold); font-size: 1.4rem; line-height: 1; }
+
+    .motto { font-size: 1.5rem; line-height: 1.4; margin: 0; }
+
+    .join p { color: var(--muted); }
+    .small-link { display: inline-block; margin-top: 1rem; padding: 0.6rem 0.5rem; color: var(--muted); }
+
+    footer { text-align: center; color: var(--faint); font-size: 0.9rem; padding: 3rem 1rem 2.5rem; }
+
     @media (max-width: 600px) {
-      main {
-        padding: 0 0.5rem;
-      }
-      .btn-group a {
-        display: block;
-        margin: 0.5rem 0;
-        width: 100%;
-        text-align: center;
-      }
-      .section ul {
-        padding-left: 1rem;
-      }
+      body { font-size: 1rem; }
+      h1 { font-size: 1.7rem; margin-top: 1.2rem; }
+      h2 { font-size: 1.35rem; }
+      .lead { font-size: 1.05rem; }
+      .actions { flex-direction: column; align-items: stretch; margin-top: 1.25rem; }
+      .btn { width: 100%; }
+      .rule { margin: 2.4rem auto; }
+      .motto { font-size: 1.2rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- Hero Section -->
-<header class="hero-section" aria-label="Banner image of LiBro Society"></header>
+<header>
+  <img class="banner" src="hero.jpg" width="1600" height="895" fetchpriority="high"
+       alt="The LiBro Society banner: a golden carved relief under an arch lettered LiBro Society, with the round LiBro armor emblem.">
+</header>
 
 <main>
 
-  <!-- About Section -->
-  <div class="section">
-    <h1>About LiBro Society</h1>
-    <p>
-      <strong>LiBro Society is a group of people who take care of each other.</strong><br>
-      We don’t wait for things to get better—we do what we can, together.<br>
-      We share, we help, and we show up when it matters.<br>
-      Everyone has a role. No one gets left behind.
+  <section aria-labelledby="intro-title">
+    <h1 id="intro-title">You're not alone.</h1>
+    <p class="lead">
+      <span class="s">LiBro Society is a group of people who take care of each other.</span>
+      <span class="s">We don't wait for things to get better.</span>
+      <span class="s">We do what we can, together.</span>
     </p>
-  </div>
-
-  <!-- Talk to LiBro -->
-  <section class="talk-libro">
-    <h2>You’re Not Alone. Talk to LiBro.</h2>
-    <a href="talk.html" class="talk-button">Talk to LiBro</a>
+    <p><span class="s">There's no form to fill out to join.</span>
+      <span class="tagalog" lang="tl">Walang form na kailangang sagutan para sumali.</span>
+    </p>
+    <div class="actions">
+      <a class="btn" href="talk.html">Talk to LiBro</a>
+      <a class="btn" href="guide.html">Start a LiBro Circle</a>
+    </div>
   </section>
 
-  <!-- Active Campaigns -->
-  <div class="section">
-    <h2>Active Campaigns</h2>
-    <ul>
-      <li><strong>Free Feeding:</strong> We cook and share meals with people who need it most.</li>
-      <li><strong>LiBro Vouchers:</strong> You help someone. Someone helps you. No money needed.</li>
-      <li><strong>𝐅𝐫𝐞𝐞𝐝𝐨𝐦 𝐭𝐨 𝐆𝐢𝐯𝐞, 𝐏𝐨𝐰𝐞𝐫 𝐭𝐨 𝐇𝐞𝐥𝐩</strong></li>
+  <div class="rule" aria-hidden="true"><span></span></div>
+
+  <section aria-labelledby="how-title">
+    <h2 id="how-title">How it works</h2>
+    <ol class="steps">
+      <li>
+        <span class="num">I</span>
+        <h3>Help where you are</h3>
+        <p>
+          <span class="s">Cook and share a meal.</span>
+          <span class="s">Bring what you can: an afternoon, an extra pair of hands.</span>
+          <span class="s">Some days you help, other days it's your turn to be helped.</span>
+          <span class="tagalog" lang="tl">Lahat dito ay may maibibigay, kahit isang hapon lang o dagdag na kamay.</span>
+        </p>
+      </li>
+      <li>
+        <span class="num">II</span>
+        <h3>Pass on a voucher</h3>
+        <p>
+          <span class="s">A LiBro Voucher is paper with a QR code.</span>
+          <span class="s">Give it to someone who needs it, and they can pass it on to someone who needs it more.</span>
+          <span class="s">A LiBro partner nearby scans it, and LiBro pays the partner back.</span>
+          <span class="s">Each voucher works once.</span>
+        </p>
+      </li>
+      <li>
+        <span class="num">III</span>
+        <h3>Start a LiBro Circle</h3>
+        <p>
+          <span class="s">A few neighbors, one place, one small useful thing, again and again.</span>
+          <span class="s">Nobody has to approve it. <a href="guide.html">Here's how.</a></span>
+          <span class="tagalog" lang="tl">Walang sign-up at walang approval. Puwede kang magsimula ngayong linggo.</span>
+        </p>
+      </li>
+    </ol>
+  </section>
+
+  <div class="rule" aria-hidden="true"><span></span></div>
+
+  <section aria-labelledby="docs-title">
+    <h2 id="docs-title">What we stand for</h2>
+    <ul class="docs">
+      <li><a href="living-manifesto.html">
+        <span class="doc-text"><span class="doc-title">Living Manifesto</span><span class="doc-desc">What LiBro is today, in plain words.<br>It grows as we do.</span></span>
+        <span class="chev" aria-hidden="true">&rsaquo;</span></a></li>
+      <li><a href="founding-manifesto.html">
+        <span class="doc-text"><span class="doc-title">Founding Manifesto</span><span class="doc-desc">Where it all began, kept exactly as it was first written.</span></span>
+        <span class="chev" aria-hidden="true">&rsaquo;</span></a></li>
+      <li><a href="declaration-of-intent.html">
+        <span class="doc-text"><span class="doc-title">Declaration of Intent</span><span class="doc-desc">The promises we make to each other and to anyone who joins us.</span></span>
+        <span class="chev" aria-hidden="true">&rsaquo;</span></a></li>
+      <li><a href="https://3zachw4pwbaqqyys67jthas7zob52sirzzrvbhdjzfqwhgctrpqa.ar.io/3kAj24-wQQhjEvfTM4Jfy4PdSRHOY1CcaclhY5hTi-A">
+        <span class="doc-text"><span class="doc-title">Video</span><span class="doc-desc">LiBro Society on video.</span></span>
+        <span class="chev" aria-hidden="true">&rsaquo;</span></a></li>
+      <li><a href="Letter_to_the_Church.html">
+        <span class="doc-text"><span class="doc-title">Letter to the Church</span><span class="doc-desc">An open letter about loss, silence and being erased.</span></span>
+        <span class="chev" aria-hidden="true">&rsaquo;</span></a></li>
     </ul>
-  </div>
+  </section>
 
-  <!-- Manifesto Section -->
-  <div class="section">
-    <h2>Manifesto & Declaration of Intent</h2>
-    <div class="btn-group">
-      <a href="founding-manifesto.html">Founding Manifesto</a>
-      <a href="living-manifesto.html">Living Manifesto</a>
-      <a href="declaration-of-intent.html">Declaration of Intent</a>
-      <a href="https://3zachw4pwbaqqyys67jthas7zob52sirzzrvbhdjzfqwhgctrpqa.ar.io/3kAj24-wQQhjEvfTM4Jfy4PdSRHOY1CcaclhY5hTi-A">Video</a>
-      <a href="Letter_to_the_Church.html">Letter to the Church</a>
-    </div>
-  </div>
+  <div class="rule" aria-hidden="true"><span></span></div>
 
-  <!-- Social Links -->
-  <div class="section">
-    <h2>Join the Movement</h2>
-    <div class="social-links">
-      <a href="https://www.facebook.com/LiBro.page" aria-label="LiBro on Facebook">📘 Facebook</a>
-      <a href="https://x.com/LiBro_X" aria-label="LiBro on Twitter/X">🐦 Twitter/X</a>
-      <a href="https://t.me/LiBro_Society" aria-label="LiBro on Telegram">💬 Telegram</a>
+  <p class="motto">Freedom to Give,<br>Power to Help</p>
+
+  <div class="rule" aria-hidden="true"><span></span></div>
+
+  <section class="join" aria-labelledby="join-title">
+    <h2 id="join-title">Join us</h2>
+    <p>
+      <span class="s">Telegram is the best place to reach LiBro.</span>
+      <span class="s">Ask us for vouchers for your Circle, or tell us about a store that wants to be a partner.</span>
+    </p>
+    <div class="actions">
+      <a class="btn" href="https://t.me/LiBro_Society" target="_blank" rel="noopener noreferrer">Message LiBro on Telegram</a>
     </div>
-  </div>
+    <a class="small-link" href="https://x.com/LiBro_X" target="_blank" rel="noopener noreferrer">Follow LiBro on X</a>
+  </section>
 
 </main>
 
-<!-- Footer -->
-<footer>
-  &copy; 2025 LiBro Society — No one gets erased again.
-</footer>
+<footer>&copy; 2026 LiBro Society &middot; No one gets erased again.</footer>
 
 </body>
 </html>
