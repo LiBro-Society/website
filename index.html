@@ -76,7 +76,6 @@
     h3 { font-size: 1.2rem; line-height: 1.35; margin: 0.25rem 0 0.4rem; }
     p { margin: 0 0 0.9rem; }
     .lead { font-size: 1.12rem; }
-    .tagalog { display: block; color: var(--faint); font-style: italic; font-size: 0.95em; margin-top: 0.3rem; text-wrap: balance; }
 
     /* Buttons: gold outline, at least 48px tall, never wider than the screen */
     .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.85rem; margin: 1.6rem 0 0.5rem; }
@@ -114,7 +113,8 @@
     .doc-desc { display: block; color: var(--muted); font-size: 0.95rem; line-height: 1.5; margin-top: 0.15rem; }
     .chev { color: var(--gold); font-size: 1.4rem; line-height: 1; }
 
-    .motto { font-size: 1.5rem; line-height: 1.4; margin: 0; }
+    /* The motto sits under the intro, just above the two buttons */
+    .motto { font-size: 1.5rem; line-height: 1.4; margin: 1.1rem 0 0; }
 
     .join p { color: var(--muted); }
     .small-link { display: inline-block; margin-top: 1rem; padding: 0.6rem 0.5rem; color: var(--muted); }
@@ -143,15 +143,13 @@
 <main>
 
   <section aria-labelledby="intro-title">
-    <h1 id="intro-title">You're not alone.</h1>
+    <h1 id="intro-title">You're not alone</h1>
     <p class="lead">
-      <span class="s">LiBro Society is a group of people who take care of each other.</span>
-      <span class="s">We don't wait for things to get better.</span>
-      <span class="s">We do what we can, together.</span>
+      <span class="s">LiBro Society is a group of people who take care of each other</span>
+      <span class="s">We don't wait for things to get better</span>
+      <span class="s">We do what we can, together</span>
     </p>
-    <p><span class="s">There's no form to fill out to join.</span>
-      <span class="tagalog" lang="tl">Walang form na kailangang sagutan para sumali.</span>
-    </p>
+    <p class="motto">Freedom to Give<br>Power to Help</p>
     <div class="actions">
       <a class="btn" href="talk.html">Talk to LiBro</a>
       <a class="btn" href="guide.html">Start a LiBro Circle</a>
@@ -170,7 +168,6 @@
           <span class="s">Cook and share a meal.</span>
           <span class="s">Bring what you can: an afternoon, an extra pair of hands.</span>
           <span class="s">Some days you help, other days it's your turn to be helped.</span>
-          <span class="tagalog" lang="tl">Lahat dito ay may maibibigay, kahit isang hapon lang o dagdag na kamay.</span>
         </p>
       </li>
       <li>
@@ -187,9 +184,8 @@
         <span class="num">III</span>
         <h3>Start a LiBro Circle</h3>
         <p>
-          <span class="s">A few neighbors, one place, one small useful thing, again and again.</span>
+          <span class="s">Get a few neighbors together and do something useful in the same place, again and again.</span>
           <span class="s">Nobody has to approve it. <a href="guide.html">Here's how.</a></span>
-          <span class="tagalog" lang="tl">Walang sign-up at walang approval. Puwede kang magsimula ngayong linggo.</span>
         </p>
       </li>
     </ol>
@@ -213,14 +209,10 @@
         <span class="doc-text"><span class="doc-title">Video</span><span class="doc-desc">LiBro Society on video.</span></span>
         <span class="chev" aria-hidden="true">&rsaquo;</span></a></li>
       <li><a href="Letter_to_the_Church.html">
-        <span class="doc-text"><span class="doc-title">Letter to the Church</span><span class="doc-desc">An open letter about loss, silence and being erased.</span></span>
+        <span class="doc-text"><span class="doc-title">Letter to the Church</span><span class="doc-desc">An open letter about grief and being erased.</span></span>
         <span class="chev" aria-hidden="true">&rsaquo;</span></a></li>
     </ul>
   </section>
-
-  <div class="rule" aria-hidden="true"><span></span></div>
-
-  <p class="motto">Freedom to Give,<br>Power to Help</p>
 
   <div class="rule" aria-hidden="true"><span></span></div>
 
