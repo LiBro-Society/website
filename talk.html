@@ -222,12 +222,32 @@
       border: 0;
     }
 
+    /* Phones: the screen is small, so give the conversation as much of it as possible */
     @media (max-width: 480px) {
-      body { padding: 1rem 0.75rem; }
-      h1 { font-size: 2rem; }
-      .subtext { font-size: 1rem; margin-bottom: 1.25rem; }
+      body { padding: 0.75rem 0.75rem 1rem; }
+      .logo { width: 38%; max-width: 140px; margin-bottom: 0.5rem; }
+      h1 { font-size: 1.8rem; margin: 0 0 0.25rem; }
+      .subtext { font-size: 0.95rem; margin-bottom: 0.9rem; }
       .msg { max-width: 92%; }
       button { padding: 0.75rem 1.1rem; }
+
+      /* Before the first message the box is smaller, so the typing area is on screen straight away */
+      .chatbox {
+        height: calc(100vh - 24rem);
+        height: calc(100dvh - 24rem);
+        min-height: 200px;
+      }
+
+      /* Once the conversation has started, the logo and tagline step aside so the chat fills the screen */
+      body.chatting .logo,
+      body.chatting .subtext { display: none; }
+      body.chatting h1 { font-size: 1.3rem; margin-bottom: 0.6rem; }
+      body.chatting .chatbox {
+        height: calc(100vh - 11rem);
+        height: calc(100dvh - 11rem);
+        min-height: 300px;
+        max-height: none;
+      }
     }
   </style>
 </head>

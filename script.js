@@ -140,6 +140,7 @@
   }
 
   function updateControls() {
+    document.body.classList.toggle("chatting", messages.length > 0); // phones: header shrinks once chatting
     newChatBtn.hidden = messages.length === 0;
     newChatBtn.disabled = sending;
     sendBtn.disabled = sending;
