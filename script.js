@@ -18,7 +18,14 @@
   const STORE_KEY = "libro-chat-v2";
   const OLD_STORE_KEY = "libro-chat-v1"; // the tab-only version, read once so an open chat isn't lost
 
-  const WELCOME = "Hi, glad you're here. What's on your mind?";
+  // The first bubble, by the visitor's own clock. Not saved with the chat, so it fits whenever they return.
+  function welcome(hour = new Date().getHours()) {
+    if (hour >= 5 && hour < 11) return "Hey, early start today? What's going on?";
+    if (hour >= 11 && hour < 14) return "Hey, taking a little break? What's going on?";
+    if (hour >= 14 && hour < 18) return "Hey, how's the day treating you so far?";
+    if (hour >= 18 && hour < 22) return "Hey, long day? Come sit for a bit. What's going on?";
+    return "Hey, still up? Me too. What's going on?";
+  }
   const TROUBLE =
     "Something went wrong on my side. Please try again, or reach us on Telegram at t.me/LiBro_Society.";
   const TOO_SLOW =
@@ -229,7 +236,7 @@
     chatBox.textContent = "";
     failed = null;
     typingEl = null;
-    addBubble("bot", WELCOME);
+    addBubble("bot", welcome());
     messages.forEach(m => addBubble(m.role === "user" ? "user" : "bot", m.content, m.human));
     stickToBottom = true;
     chatBox.scrollTop = chatBox.scrollHeight;
