@@ -1,20 +1,30 @@
 // The chat box on libro.gives/talk.html
 //
-// Each visitor's conversation lives only in their own browser tab (this `messages` list, backed up in
-// sessionStorage so a refresh doesn't wipe it). Nothing is stored on a server and nothing is shared
-// between visitors, so no sign-in or profile is needed. Closing the tab clears it.
+// Each visitor's conversation is kept in their own browser (localStorage) until they press "Start a new
+// conversation" (the page says so), so a visitor who comes back still sees it and any late reply. The
+// server keeps replies for 7 days after the last message. Nothing is shared between visitors and no
+// sign-in or profile is needed.
+//
+// The server copies website chats into LiBro's private Telegram inbox, where LiBro angels can read them
+// and reply. Those replies are fetched from /api/replies while this page is open, using the conversation's
+// random id (128 bits, made here, never shown) so only this conversation's replies come back.
 (() => {
-  const API_URL = "https://libro-proxy.vercel.app/api/chat";
+  const API_BASE = "https://libro-proxy.vercel.app/api";
+  const API_URL = API_BASE + "/chat";
+  const REPLIES_URL = API_BASE + "/replies";
   const SEND_LAST = 12;        // how many recent messages are sent to the server (same as Messenger)
-  const KEEP_LAST = 40;        // how many are kept in this tab
+  const KEEP_LAST = 40;        // how many are kept in this browser
   const TIMEOUT_MS = 30000;    // give up waiting after 30 seconds
-  const STORE_KEY = "libro-chat-v1";
+  const STORE_KEY = "libro-chat-v2";
+  const OLD_STORE_KEY = "libro-chat-v1"; // the tab-only version, read once so an open chat isn't lost
 
   const WELCOME = "Hi, glad you're here. What's on your mind?";
   const TROUBLE =
     "Something went wrong on my side. Please try again, or reach us on Telegram at t.me/LiBro_Society.";
   const TOO_SLOW =
     "That's taking longer than usual. Please try again, or reach us on Telegram at t.me/LiBro_Society.";
+  const HUMAN_LABEL = "LiBro angel";
+  const PAUSED_NOTE = "A LiBro angel will answer you here.";
 
   const chatBox = document.getElementById("chat-box");
   const form = document.getElementById("chat-form");
@@ -22,33 +32,75 @@
   const sendBtn = document.getElementById("send-btn");
   const newChatBtn = document.getElementById("new-chat");
 
-  let messages = loadMessages(); // [{ role: "user" | "assistant", content: "..." }]
+  // messages: [{ role: "user" | "assistant", content: "...", human?: true, id?: number }]
+  // (human = typed by a LiBro angel in Telegram; id = that reply's number, to avoid showing it twice)
+  let { messages, cid, lastReplyId, lastActive, inbox } = load();
   let sending = false;
   let typingEl = null;
   let failed = null;             // the last question that got no answer: { text, userBubble, errorBubble }
   let stickToBottom = true;      // true while the visitor is reading the latest message (not scrolled up)
+  let pollTimer = null;
+  let polling = false;
 
-  // ---- saving in this tab (all wrapped, since storage can be blocked, e.g. in private windows) ----
-  function loadMessages() {
-    try {
-      const saved = JSON.parse(sessionStorage.getItem(STORE_KEY) || "[]");
-      if (!Array.isArray(saved)) return [];
-      return saved
-        .filter(m => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
-        .slice(-KEEP_LAST);
-    } catch (e) {
-      return [];
-    }
+  // ---- saving in this browser (all wrapped, since storage can be blocked, e.g. in private windows) ----
+  function cleanList(list) {
+    if (!Array.isArray(list)) return [];
+    return list
+      .filter(m => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
+      .map(m => {
+        const out = { role: m.role, content: m.content };
+        if (m.role === "assistant" && m.human === true) {
+          out.human = true;
+          if (Number.isSafeInteger(m.id)) out.id = m.id;
+        }
+        return out;
+      })
+      .slice(-KEEP_LAST);
   }
 
-  function saveMessages() {
+  function load() {
+    const empty = { messages: [], cid: null, lastReplyId: 0, lastActive: 0, inbox: false };
     try {
-      sessionStorage.setItem(STORE_KEY, JSON.stringify(messages.slice(-KEEP_LAST)));
+      const saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
+      if (saved && typeof saved === "object") {
+        return {
+          messages: cleanList(saved.messages),
+          cid: typeof saved.cid === "string" && /^[0-9a-f]{32}$/.test(saved.cid) ? saved.cid : null,
+          lastReplyId: Number.isSafeInteger(saved.lastReplyId) && saved.lastReplyId > 0 ? saved.lastReplyId : 0,
+          lastActive: Number(saved.lastActive) || 0,
+          inbox: saved.inbox === true
+        };
+      }
+    } catch (e) { /* fall through */ }
+    try {
+      const old = cleanList(JSON.parse(sessionStorage.getItem(OLD_STORE_KEY) || "[]"));
+      if (old.length) return { ...empty, messages: old, lastActive: Date.now() };
+    } catch (e) { /* ignore */ }
+    return empty;
+  }
+
+  function save() {
+    try {
+      localStorage.setItem(STORE_KEY, JSON.stringify({
+        messages: messages.slice(-KEEP_LAST), cid, lastReplyId, lastActive, inbox
+      }));
+      sessionStorage.removeItem(OLD_STORE_KEY);
     } catch (e) { /* the chat still works without saving */ }
   }
 
   function clearSaved() {
-    try { sessionStorage.removeItem(STORE_KEY); } catch (e) { /* ignore */ }
+    try { localStorage.removeItem(STORE_KEY); } catch (e) { /* ignore */ }
+    try { sessionStorage.removeItem(OLD_STORE_KEY); } catch (e) { /* ignore */ }
+  }
+
+  // 16 random bytes as hex. Without a proper random source there is no id, and no Telegram replies.
+  function newConversationId() {
+    try {
+      const bytes = crypto.getRandomValues(new Uint8Array(16));
+      return Array.from(bytes, b => b.toString(16).padStart(2, "0")).join("");
+    } catch (e) {
+      return null;
+    }
   }
 
   // ---- drawing the conversation ----
@@ -88,14 +140,38 @@
     }
   }
 
-  function addBubble(role, text) {
+  // New bubbles go above the "typing" dots, if they are showing
+  function place(el) {
+    if (typingEl && typingEl.parentNode === chatBox) chatBox.insertBefore(el, typingEl);
+    else chatBox.appendChild(el);
+  }
+
+  function addBubble(role, text, human) {
     const el = document.createElement("div");
-    el.className = "msg " + (role === "user" ? "user" : "bot");
-    if (role === "user") el.textContent = text;
-    else fillWithLinks(el, text);
-    chatBox.appendChild(el);
+    el.className = "msg " + (role === "user" ? "user" : "bot") + (human ? " human" : "");
+    if (role === "user") {
+      el.textContent = text;
+    } else {
+      if (human) {
+        const who = document.createElement("span");
+        who.className = "who";
+        who.textContent = HUMAN_LABEL;
+        el.appendChild(who);
+      }
+      fillWithLinks(el, text);
+    }
+    place(el);
     scrollToLatest(el);
     return el;
+  }
+
+  // A small line in the middle of the conversation (not part of the saved chat)
+  function addNotice(text) {
+    const el = document.createElement("div");
+    el.className = "notice";
+    el.textContent = text;
+    place(el);
+    scrollToLatest(el);
   }
 
   function showTyping() {
@@ -127,7 +203,7 @@
       send(text);
     });
     el.appendChild(retry);
-    chatBox.appendChild(el);
+    place(el);
     scrollToLatest(el);
     failed = { text, userBubble, errorBubble: el };
   }
@@ -152,10 +228,81 @@
     updateControls(); // first, so the phone layout (taller box) is in place before anything is measured
     chatBox.textContent = "";
     failed = null;
+    typingEl = null;
     addBubble("bot", WELCOME);
-    messages.forEach(m => addBubble(m.role === "user" ? "user" : "bot", m.content));
+    messages.forEach(m => addBubble(m.role === "user" ? "user" : "bot", m.content, m.human));
     stickToBottom = true;
     chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  // ---- replies from LiBro angels (typed in Telegram) ----
+  // Ask often right after the visitor or an angel wrote, then less and less, and stop after two quiet
+  // hours. Never while the tab is hidden; coming back to the tab asks straight away.
+  function pollDelay() {
+    const quiet = Date.now() - lastActive;
+    if (quiet < 3 * 60 * 1000) return 4000;
+    if (quiet < 15 * 60 * 1000) return 15000;
+    if (quiet < 2 * 60 * 60 * 1000) return 60000;
+    return null;
+  }
+
+  function schedulePoll(delay) {
+    clearTimeout(pollTimer);
+    pollTimer = null;
+    if (!inbox || !cid || document.hidden) return;
+    const wait = delay === undefined ? pollDelay() : delay;
+    if (wait === null) return;
+    pollTimer = setTimeout(poll, wait);
+  }
+
+  async function poll() {
+    pollTimer = null;
+    if (!inbox || !cid || polling) return;
+    polling = true;
+    const askedFor = cid;
+    let retryIn;
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 15000);
+    try {
+      const response = await fetch(REPLIES_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ conversation: cid, after: lastReplyId }),
+        signal: controller.signal
+      });
+      const data = await response.json().catch(() => null);
+      if (askedFor !== cid) return;                 // a new conversation started meanwhile
+      if (response.status === 429) retryIn = 60000;
+      if (data && data.inbox === false) {           // the inbox is switched off: stop asking
+        inbox = false;
+        save();
+        return;
+      }
+      if (response.ok && data && Array.isArray(data.replies)) receive(data.replies);
+    } catch (e) {
+      /* offline or slow: try again later */
+    } finally {
+      clearTimeout(timer);
+      polling = false;
+      schedulePoll(retryIn);
+    }
+  }
+
+  function receive(replies) {
+    const seen = new Set(messages.filter(m => m.human && m.id).map(m => m.id));
+    const fresh = replies
+      .filter(r => r && Number.isSafeInteger(r.id) && r.id > lastReplyId && !seen.has(r.id) &&
+        typeof r.text === "string" && r.text.trim())
+      .sort((a, b) => a.id - b.id);
+    if (!fresh.length) return;
+    for (const r of fresh) {
+      messages.push({ role: "assistant", content: r.text, human: true, id: r.id });
+      addBubble("bot", r.text, true);
+      lastReplyId = Math.max(lastReplyId, r.id);
+    }
+    lastActive = Date.now();
+    save();
+    updateControls();
   }
 
   // ---- sending ----
@@ -166,43 +313,63 @@
     clearFailed(false);
     sending = true;
     input.value = "";
-    messages.push({ role: "user", content: text });
+    if (!cid) cid = newConversationId();
+    lastActive = Date.now();
+    const userMsg = { role: "user", content: text };
+    messages.push(userMsg);
     const userBubble = addBubble("user", text);
     updateControls();
     showTyping();
 
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+    const forget = () => {                       // take this question back out of the history
+      const i = messages.lastIndexOf(userMsg);
+      if (i >= 0) messages.splice(i, 1);
+    };
 
     try {
+      const payload = {
+        messages: messages.slice(-SEND_LAST).map(m => ({ role: m.role, content: m.content })),
+        channel: "web"
+      };
+      if (cid) payload.conversation = cid;
       const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: messages.slice(-SEND_LAST), channel: "web" }),
+        body: JSON.stringify(payload),
         signal: controller.signal
       });
       const data = await response.json().catch(() => null);
       hideTyping();
+      // inbox: true = the chat reached the Telegram inbox, so look for replies (even if the bot failed)
+      if (data && data.inbox === true) inbox = true;
+      else if (response.ok && data) inbox = false;
 
-      if (response.ok && data && typeof data.reply === "string" && data.reply.trim() && !data.fallback) {
+      if (response.ok && data && data.paused === true) {
+        // A LiBro angel has taken over this chat: the message reached them, the bot stays quiet
+        addNotice(PAUSED_NOTE);
+      } else if (response.ok && data && typeof data.reply === "string" && data.reply.trim() && !data.fallback) {
         messages.push({ role: "assistant", content: data.reply });
         addBubble("bot", data.reply);
       } else {
         // No real answer. Take the question back out of the history so "Try again" doesn't send it twice,
         // and show the server's own short message if it sent one.
-        messages.pop();
+        forget();
         const notice = data && typeof data.reply === "string" && data.reply.trim() ? data.reply : TROUBLE;
         showError(notice, text, userBubble);
       }
     } catch (err) {
       hideTyping();
-      messages.pop();
+      forget();
       showError(err && err.name === "AbortError" ? TOO_SLOW : TROUBLE, text, userBubble);
     } finally {
       clearTimeout(timer);
       sending = false;
-      saveMessages();
+      lastActive = Date.now();
+      save();
       updateControls();
+      schedulePoll();
       input.focus();
     }
   }
@@ -216,12 +383,31 @@
   newChatBtn.addEventListener("click", () => {
     if (sending) return;
     messages = [];
+    cid = null;
+    lastReplyId = 0;
+    lastActive = 0;
+    inbox = false;
+    schedulePoll();   // stops asking for replies
     clearSaved();
     renderAll();
     input.focus();
   });
 
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) schedulePoll();   // stops while hidden
+    else schedulePoll(0);                  // back on the tab: check for replies now
+  });
+
+  // The same chat open in another tab changed it: show the same thing here
+  window.addEventListener("storage", e => {
+    if (e.key !== STORE_KEY || sending) return;
+    ({ messages, cid, lastReplyId, lastActive, inbox } = load());
+    renderAll();
+    schedulePoll();
+  });
+
   renderAll();
+  schedulePoll(0);   // a returning visitor: look for replies that came while they were away
 
   // Keep the latest message in view. Fonts finishing, the phone's address bar sliding away and the
   // chat box changing size all move things after the first draw, so (unless the visitor has scrolled

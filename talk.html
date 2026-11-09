@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Talk to LiBro | LiBro Society</title>
-  <meta name="description" content="Talk to LiBro Society. Ask about LiBro Circles and vouchers, or say what&#x27;s on your mind. The chat isn&#x27;t saved." />
+  <meta name="description" content="Talk to LiBro Society. Ask about LiBro Circles and vouchers, or say what&#x27;s on your mind." />
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <!-- Link previews on Telegram, Facebook and X -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="LiBro Society">
   <meta property="og:title" content="Talk to LiBro | LiBro Society">
-  <meta property="og:description" content="Talk to LiBro Society. Ask about LiBro Circles and vouchers, or say what&#x27;s on your mind. The chat isn&#x27;t saved.">
+  <meta property="og:description" content="Talk to LiBro Society. Ask about LiBro Circles and vouchers, or say what&#x27;s on your mind.">
   <meta property="og:image" content="https://libro.gives/hero.jpg">
   <meta property="og:image:width" content="1600">
   <meta property="og:image:height" content="895">
@@ -99,6 +99,29 @@
 
     .msg.error {
       border: 1px solid #c0584b;
+    }
+
+    /* A reply typed by a LiBro angel (a person) in Telegram */
+    .msg.human {
+      border-left: 3px solid #ffd700;
+    }
+
+    .msg .who {
+      display: block;
+      margin-bottom: 0.2rem;
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: #ffd700;
+      letter-spacing: 0.02em;
+    }
+
+    /* A short line in the middle of the conversation, e.g. "A LiBro angel will answer you here." */
+    .notice {
+      align-self: center;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: #999;
+      text-align: center;
     }
 
     .retry-btn {
@@ -278,7 +301,8 @@
   </form>
 
   <p class="note">
-    This chat isn't saved, and closing this tab clears it.
+    LiBro angels may read this chat and reply here.<br>
+    It stays on this device until you start a new conversation.
   </p>
 
   <button type="button" class="link-btn" id="new-chat" hidden>Start a new conversation</button>
@@ -287,6 +311,6 @@
   <a href="index.html" class="back-link">← Back to Homepage</a>
 
   <!-- Change the number after ?v= whenever script.js changes, so browsers fetch the new script instead of an old cached copy -->
-  <script src="script.js?v=4" defer></script>
+  <script src="script.js?v=5" defer></script>
 </body>
 </html>
